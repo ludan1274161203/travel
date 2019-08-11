@@ -4,8 +4,10 @@
 import Vue from 'vue'
 import App from '@/App'
 import router from './router'
-import 'normalize.css'
-import 'border.css'
+import 'styles/reset.css'
+import 'styles/border.css'
+import 'fastclick'
+import 'styles/iconfont/iconfont.css'
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
