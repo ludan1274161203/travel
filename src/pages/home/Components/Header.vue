@@ -7,14 +7,15 @@
       <span class="iconfont">&#xe61b;</span>输入城市/景点/游玩主题
     </div>
     <div class="header-right iconfont">
-      三亚
+      北京
       <span class="iconfont arrow-icon">&#xe688;</span>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: 'HomeHeader'
+  name: 'HomeHeader',
+  props: ['cities']
 }
 </script>
 <style lang="scss" scoped>
