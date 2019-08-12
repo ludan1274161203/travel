@@ -83,6 +83,7 @@ export default {
   width: 100%;
   height: 0;
   padding-bottom: 50%;
+  margin-bottom: 0.1rem;
   .icon {
     position: relative;
     float: left;
