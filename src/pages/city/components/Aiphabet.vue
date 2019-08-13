@@ -1,16 +1,48 @@
 <template>
   <ul class="list">
-    <li class="item">1</li>
-    <li class="item">2</li>
-    <li class="item">3</li>
-    <li class="item">4</li>
-    <li class="item">5</li>
-    <li class="item">6</li>
+    <li
+      class="item"
+      @click="handleClick"
+      @touchStart="handleTouchStart"
+      @touchMove="handleTouchMove"
+      @touchEnd="handleTouchEnd"
+      v-for="(item,key) of cities"
+      :key="key"
+    >{{key}}</li>
   </ul>
 </template>
 <script>
+import EventBus from '@/eventBus.js'
 export default {
-  name: 'Aiphabet'
+  name: 'Aiphabet',
+  props: ['cities'],
+  data () {
+    return {
+      touchStatus: false
+    }
+  },
+  computed: {
+    letters () {
+      const letters = []
+      for (let i in this.cities) {
+        letters.push[i]
+      }
+      return letters
+    }
+  },
+  methods: {
+    handleClick (e) {
+      const letter = e.target.innerHTML
+      EventBus.$emit('getTarget', letter)
+    },
+    handleTouchStart () {
+
+    },
+    handleTouchMove () {
+
+    },
+    handleTouchEnd () { }
+  }
 }
 </script>
 <style lang="scss" scoped>
