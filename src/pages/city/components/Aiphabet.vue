@@ -6,9 +6,10 @@
       @touchStart="handleTouchStart"
       @touchMove="handleTouchMove"
       @touchEnd="handleTouchEnd"
-      v-for="(item,key) of cities"
-      :key="key"
-    >{{key}}</li>
+      v-for="(item,index) of letters"
+      :key="index"
+      :ref="item"
+    >{{item}}</li>
   </ul>
 </template>
 <script>
@@ -18,14 +19,19 @@ export default {
   props: ['cities'],
   data () {
     return {
-      touchStatus: false
+      touchStatus: false,
+      startY: 0,
+      timer: null
     }
+  },
+  updated () {
+    this.startY = this.$refs['A'][0].offsetTop
   },
   computed: {
     letters () {
       const letters = []
       for (let i in this.cities) {
-        letters.push[i]
+        letters.push(i)
       }
       return letters
     }
@@ -35,13 +41,26 @@ export default {
       const letter = e.target.innerHTML
       EventBus.$emit('getTarget', letter)
     },
-    handleTouchStart () {
-
+    handleTouchStart (e) {
+      this.touchStatus = true
     },
-    handleTouchMove () {
-
+    handleTouchMove (e) {
+      if (this.touchStatus) {
+        if (this.timer) {
+          clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(() => {
+          const touchY = e.touchs[0].clientY - 79
+          const index = Math.floor((touchY - this.startY) / 20)
+          if (index >= 0 && index < this.letters.length) {
+            EventBus.$emit('getTarget', this.letters[index])
+          }
+        }, 1000)
+      }
     },
-    handleTouchEnd () { }
+    handleTouchEnd (e) {
+      this.touchStatus = false
+    }
   }
 }
 </script>

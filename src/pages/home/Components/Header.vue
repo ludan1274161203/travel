@@ -23,7 +23,7 @@ export default {
 <style lang="scss" scoped>
 @import '~styles/_variable.scss';
 .header {
-  line-height: 0.86rem;
+  line-height: $headerHeight;
   display: flex;
   background-color: $bgcolor;
   color: #fff;
