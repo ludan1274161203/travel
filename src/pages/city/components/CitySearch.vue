@@ -9,6 +9,7 @@
           class="search-item border-bottom"
           v-for="(item, index) of list"
           :key="index"
+          @click="handleCityClick(item.name)"
         >{{item.name}}</li>
         <li class="search-item border-bottom" v-show="hasNoData">没有找到匹配数据</li>
       </ul>
@@ -17,6 +18,7 @@
 </template>
 <script>
 import BScroll from 'better-scroll'
+import { mapActions } from 'vuex'
 export default {
   name: 'CitySearch',
   props: {
@@ -28,6 +30,13 @@ export default {
       timer: null,
       list: []
     }
+  },
+  methods: {
+    handleCityClick (city) {
+      this.changeCity(city)
+      this.$router.push('/home')
+    },
+    ...mapActions(['changeCity'])
   },
   computed: {
     hasNoData () {
@@ -58,7 +67,7 @@ export default {
     }
   },
   mounted () {
-    this.scroll = new BScroll(this.$refs.search)
+    this.scroll = new BScroll(this.$refs.search, { click: true })
   }
 }
 </script>

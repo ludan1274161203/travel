@@ -5,14 +5,19 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wraper">
-            <div class="button">北京</div>
+            <div class="button">{{this.city}}</div>
           </div>
         </div>
       </div>
       <div class="area">
         <div class="title border-topbottom">热门城市</div>
         <div class="button-list">
-          <div class="button-wraper" v-for="item of hotCities" :key="item.id">
+          <div
+            class="button-wraper"
+            v-for="item of hotCities"
+            :key="item.id"
+            @click="handleCityClick(item.name)"
+          >
             <div class="button">{{item.name}}</div>
           </div>
         </div>
@@ -24,6 +29,7 @@
             class="item border-bottom"
             v-for="innerItem of item"
             :key="innerItem.id"
+            @click="handleCityClick(innerItem.name)"
           >{{innerItem.name}}</div>
         </div>
       </div>
@@ -33,13 +39,25 @@
 <script>
 import BScroll from 'better-scroll'
 import EventBus from '@/eventBus.js'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'CityList',
   props: ['hotCities', 'cities'],
   data () {
     return {
-      letter: ''
+      letter: '',
+      currentCity: '武汉'
     }
+  },
+  methods: {
+    handleCityClick (city) {
+      this.changeCity(city)
+      this.$router.push('/home')
+    },
+    ...mapActions(['changeCity'])
+  },
+  computed: {
+    ...mapState(['city'])
   },
   watch: {
     letter () {
@@ -53,7 +71,7 @@ export default {
     EventBus.$on('getTarget', word => { this.letter = word })
   },
   mounted () {
-    this.scroll = new BScroll(this.$refs.wrapper)
+    this.scroll = new BScroll(this.$refs.wrapper, { click: true })
   }
 }
 </script>
