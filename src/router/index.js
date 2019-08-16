@@ -15,8 +15,15 @@ export default new Router({
     name: 'city',
     component: City
   }, {
-    path: '/detail',
+    path: '/detail/:id',
     name: 'detail',
     component: Detail
-  }]
+  }],
+  // eslint-disable-next-line space-before-function-paren
+  scrollBehavior(to, from, savePosition) {
+    return {
+      x: 0,
+      y: 0
+    }
+  }
 })
